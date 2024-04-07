@@ -63,12 +63,15 @@ public class EjemploOrdenes {
                 switch (opcion) {
                     case 1:
                         JOptionPane.showMessageDialog(null, OrdenCompra.devolverOrden(orden1));
+                        opcion = 0;
                         break;
                     case 2:
                         JOptionPane.showMessageDialog(null, OrdenCompra.devolverOrden(orden2));
+                        opcion = 0;
                         break;
                     case 3:
                         JOptionPane.showMessageDialog(null, OrdenCompra.devolverOrden(orden3));
+                        opcion = 0;
                         break;
                     case 4:
                         System.exit(0);
