@@ -1,69 +1,87 @@
 package proyectoordencompra;
 
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class EjemploOrdenes {
 
     public static void main(String[] args) {
 
-        
-    ///////////////// Productos////////////////////////    
-        Producto producto = new Producto();
-        producto.setFabricante("Yamaha");
-        producto.setNombre("Motocicleta");
-        producto.setPrecio(2250000);
-        OrdenCompra.addProducto(producto);
-
-        Producto producto2 = new Producto();
-        producto2.setFabricante("Honda");
-        producto2.setNombre("Motocicleta");
-        producto2.setPrecio(2050000);
-        OrdenCompra.addProducto(producto);
-
-        Producto producto3 = new Producto();
-        producto3.setFabricante("Kawasaki");
-        producto3.setNombre("Motocicleta");
-        producto3.setPrecio(2450000);
-        OrdenCompra.addProducto(producto);
-
-        Producto producto4 = new Producto();
-        producto4.setFabricante("Yamaha");
-        producto4.setNombre("Motocicleta");
-        producto4.setPrecio(2250000);
-        OrdenCompra.addProducto(producto);
-
         /////////////////// Clientes///////////////////////////////
-        
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Carlos");
-        cliente.setApellido("Montiel");
-        
+        Cliente cliente1 = new Cliente();
+        cliente1.setNombre(
+                "Carlos");
+        cliente1.setApellido(
+                "Montiel");
+
         Cliente cliente2 = new Cliente();
-        cliente2.setNombre("Carlos");
-        cliente2.setApellido("Montiel");
-        
-        
-        OrdenCompra orden1 = new OrdenCompra("Compra nueva", cliente);
-        orden1.addProducto(producto);
-        orden1.addProducto(producto2);
-        orden1.addProducto(producto3);
-        OrdenCompra.Ordenes.add(orden1);
+        cliente2.setNombre(
+                "Carlos");
+        cliente2.setApellido(
+                "Madrigal");
 
+        Cliente cliente3 = new Cliente();
+        cliente3.setNombre(
+                "Luis");
+        cliente3.setApellido(
+                "Montero");
 
-        
-        OrdenCompra ordenObtenida = OrdenCompra.obtenerOrden(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el identificador de la orden:")));
-        
-        if (ordenObtenida != null) {
-             JOptionPane.showMessageDialog(null, "La fecha fue:" + ordenObtenida.getDate() + "\n"
-        + "El cliente es:" + ordenObtenida.getCliente().getNombre());
-            
-        } else {
-        JOptionPane.showMessageDialog(null, "No se encontro registro", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        OrdenCompra orden1 = new OrdenCompra("Compra del señor Carlos Montiel", cliente1);
+        orden1.addProducto(new Producto("Yamaha", "Motocicleta", 2250000));
+        orden1.addProducto(new Producto("Honda", "Motocicleta", 2050000));
+        orden1.addProducto(new Producto("Kawasaki", "Motocicleta", 2450000));
+        orden1.addProducto(new Producto("BMW", "Motocicleta", 2250000));
 
-        
-        
+        OrdenCompra orden2 = new OrdenCompra("Compra nueva Carlos Madrigal", cliente2);
+        orden2.addProducto(new Producto("Pulsar", "Motocicleta", 1700000));
+        orden2.addProducto(new Producto("Pulsar", "Motocicleta", 1950000));
+        orden2.addProducto(new Producto("Kawasaki", "Motocicleta", 2450000));
+        orden2.addProducto(new Producto("Suzuki", "Motocicleta", 2250000));
+
+        OrdenCompra orden3 = new OrdenCompra("Compra nueva Luis Montero", cliente3);
+        orden3.addProducto(new Producto("Yamaha", "Cuadraciclo", 2250000));
+        orden3.addProducto(new Producto("Honda", "Motocicleta", 1350000));
+        orden3.addProducto(new Producto("Kawasaki", "Cuadraciclo", 2550000));
+        orden3.addProducto(new Producto("Yamaha", "Sidebyside", 4250000));
+
+        int opcion = 0;
+
+        do {
+            try {
+                opcion = Integer.parseInt(JOptionPane.showInputDialog("Cual orden de compra desea visualizar?:\n"
+                        + "1. Orden #1\n"
+                        + "2. Orden #2\n"
+                        + "3. Orden #3\n"
+                        + "4. Salir ",
+                        "Digite el numero de la opcion a elegir"));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Ingrese una opcion valida");
+
+            }
+
+            if (opcion > 0 && opcion < 5) {
+
+                switch (opcion) {
+                    case 1:
+                        JOptionPane.showMessageDialog(null, OrdenCompra.devolverOrden(orden1));
+                        break;
+                    case 2:
+                        JOptionPane.showMessageDialog(null, OrdenCompra.devolverOrden(orden2));
+                        break;
+                    case 3:
+                        JOptionPane.showMessageDialog(null, OrdenCompra.devolverOrden(orden3));
+                        break;
+                    case 4:
+                        System.exit(0);
+
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese una de las opciones del menu (1-4)");
+            }
+        } while (opcion != 4);
+
     }
 
 }

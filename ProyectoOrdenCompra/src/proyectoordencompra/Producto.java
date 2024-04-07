@@ -3,9 +3,9 @@ package proyectoordencompra;
 
 
 public class Producto {
-    public static String fabricante;
-    public static String nombre;
-    public static int precio;
+    public  String fabricante;
+    public  String nombre;
+    public  int precio;
 
     public Producto() {
     }
@@ -16,28 +16,28 @@ public class Producto {
         this.precio = precio;
     }
       
-    public static String getFabricante() {
+    public String getFabricante() {
         return fabricante;
     }
 
-    public static void setFabricante(String fabricante) {
-        Producto.fabricante = fabricante;
+    public void setFabricante(String fabricante) {
+        this.fabricante = fabricante;
     }
 
-    public static String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public static void setNombre(String nombre) {
-        Producto.nombre = nombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public static int getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public static void setPrecio(int precio) {
-        Producto.precio = precio;
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }
     
     

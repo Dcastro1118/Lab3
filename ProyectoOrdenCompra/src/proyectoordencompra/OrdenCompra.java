@@ -1,53 +1,55 @@
-
 package proyectoordencompra;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import proyectoordencompra.Producto;
 
 public class OrdenCompra {
-    
+
+    private static int counter = 1;
     private int identificador;
-    private static String descripcion;
-    private static LocalDate date;
-    private static Cliente cliente;
-    private static ArrayList<Producto> productos = new ArrayList<>();
-    public static ArrayList<OrdenCompra> Ordenes = new ArrayList<>();   
+    private String descripcion;
+    private LocalDate date;
+    private Cliente cliente;
+    private ArrayList<Producto> productos = new ArrayList<>();
+
     public OrdenCompra() {
     }
 
-    public OrdenCompra(String descripcion, Cliente cliente) {
+    public OrdenCompra(String descripcion, Cliente cliente/* int identificador*/) {
         this.descripcion = descripcion;
         this.date = LocalDate.now();
         this.cliente = cliente;
-        this.identificador = 1;
+        this.identificador = counter++; 
+        
     }
-    
-    public static ArrayList getLista(){
-        return productos;
+
+    public ArrayList getLista() {
+        return this.productos;
     }
-            
 
     public int getIdentificador() {
         return identificador;
     }
 
-
     public String getDescripcion() {
         return descripcion;
     }
 
-
-    public LocalDate getDate(){
+    public LocalDate getDate() {
         return date;
     }
+
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public static Cliente getCliente(){
+    public Cliente getCliente() {
         return cliente;
-    
+
     }
+
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
@@ -56,20 +58,46 @@ public class OrdenCompra {
         return productos;
     }
 
-    public static void addProducto (Producto producto){
+    public void addProducto(Producto producto) {
         productos.add(producto);
- 
+
     }
 
-        public static OrdenCompra obtenerOrden (int identificador) {
-            
-        for (OrdenCompra orden : Ordenes) {
-
-            if (orden.getIdentificador()== identificador) {
-                return orden;
-            }
+    public static String stringProductos(OrdenCompra orden) {
+        StringBuilder StringBuilder1 = new StringBuilder();
+        for (var productos : orden.getProductos()) {
+            StringBuilder1.append("\n Nombre de producto:").append(productos.getNombre()).append("\n").append("Nombre de fabricante:"
+            ).append(productos.getFabricante()).append("\n").append("Precio:"
+            ).append(Integer.toString(productos.getPrecio())).append("\n");
         }
-        return null;
+        return StringBuilder1.toString();
+
     }
-      
+
+    public static String devolverOrden(OrdenCompra orden) {
+
+        String productosString = stringProductos(orden);
+
+        String textoAMostrar = "La orden de compra es la #" + orden.identificador + "\n"
+                + "Identificador: " + orden.getIdentificador() + "\n"
+                + "Descripcion: " + orden.getDescripcion() + "\n"
+                + "Fecha: " + orden.getDate() + "\n"
+                + "Cliente: " + orden.cliente.getNombre() + " " + orden.cliente.getApellido() + "\n"
+                + "Productos: \n" + productosString + "\n"
+                + "\n" + "\n" + "El total a pagar es de: " + devolverTotal(orden);
+
+        return textoAMostrar;
+
+    }
+    
+    public static int devolverTotal (OrdenCompra orden){
+        int total = 0;
+        for (Producto producto : orden.productos) {
+            total += producto.precio;
+
+        }
+        return total;
+    }
+
 }
+
